@@ -1,8 +1,8 @@
-import React from "react";
 
+import logo from '../../assets/fingoLogo.svg'
 const Navbar = () => {
   return (
-    <div className="w-[40%] mx-auto">
+    <div className="max-w-lg mx-auto">
       <div className="navbar bg-base-100 shadow-sm">
         <div className="navbar-start">
           <div className="dropdown">
@@ -13,7 +13,7 @@ const Navbar = () => {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
+                className="h-5 w-5 "
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -35,7 +35,7 @@ const Navbar = () => {
                 <a>Homepage</a>
               </li>
               <li>
-                <a>Portfolio</a>
+                <a>Profile</a>
               </li>
               <li>
                 <a>About</a>
@@ -44,7 +44,7 @@ const Navbar = () => {
           </div>
         </div>
         <div className="navbar-center">
-          <a className="btn btn-ghost text-xl">Fingo</a>
+          <img className='h-15 w-15' src={logo} alt="" />
         </div>
         <div className="navbar-end">
             <div className="w-10 rounded-full">
