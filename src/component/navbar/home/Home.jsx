@@ -8,7 +8,8 @@ import bonus from '../../../assets/bonus1.png'
 import money from '../../../assets/money1.png'
 import purse from '../../../assets/purse1.png'
 import Footer from "../../../Foter/Footer";
-
+import {additemtocarttolocalstorage, getcartfromlocalStoragne} from '../../../../public/LocarStorage'
+import Profile from "../Hero/Profile";
 // import TransactionCard from "./TransactionCard";
 const Home = ({Transaction,array}) => {
   const pass = "1234";
@@ -33,6 +34,9 @@ const Home = ({Transaction,array}) => {
     alert("Money Added Successfully");
     setBalance(balance+Number(amount));
     Transaction(["Add Money",amount]);
+    //save the data in the local storage
+    additemtocarttolocalstorage("Add Money: " + amount);
+    
   }
   function CashOut() {
     if(pin!==pass){
@@ -50,6 +54,8 @@ const Home = ({Transaction,array}) => {
     alert("Cash Out Successfully");
     setBalance(balance-Number(amount));
     Transaction(["Cash Out",amount]);
+    //save the data in the local storage
+    additemtocarttolocalstorage("Cash Out: " + amount);
   }
   // Recharge
   function Recharge() {
@@ -64,24 +70,38 @@ const Home = ({Transaction,array}) => {
     setBalance(balance-Number(amount));
     alert("Recharge Successfully");
     Transaction(["Recharge",amount]);
+    //save the data in the local storage
+    additemtocarttolocalstorage("Recharge: " + amount);
   }
   // Pay Bill
   function PayBill() {
     setBalance(balance-1000);
     alert("Bill Paid Successfully");
     Transaction(["Pay Bill",1000]);
+      //save the data in the local storage
+    additemtocarttolocalstorage("Pay Bill: " + 1000);
   }
   // Claim Bonus
   function ClaimBonus() {
     setBalance(balance+500);
     alert("Bonus Claimed Successfully");
     Transaction(["Get Bonus",500]);
+      //save the data in the local storage
+    additemtocarttolocalstorage("Get Bonus: " + 500);
+  }
+  const [showprofile,setshowprofile]=useState(false)
+  const accountClickHandler = () => {
+    setshowprofile(!showprofile)
   }
   return (
     <div>
       <Navbar />
 
-      <div className="shadow-lg max-w-lg mx-auto  p-4 rounded-lg">
+      {
+        showprofile?(
+          <Profile></Profile>
+        ):(<>
+              <div className="shadow-lg max-w-lg mx-auto  p-4 rounded-lg">
         {/* Balance */}
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-semibold mt-3">
@@ -296,8 +316,11 @@ const Home = ({Transaction,array}) => {
           </div>
         )}
       </div>
+        </>)
+      }
 
-      <Footer />
+
+      <Footer accountClickHandler={accountClickHandler} />
     </div>
   );
 };
